@@ -1,0 +1,15 @@
+{% load menu_tags %}
+
+<ul>
+{% for menu_item in menu_items %}
+    <li{% if menu_item.url == current_url or menu_item.url == reverse(current_url) %} class="active"{% endif %}><a href="{{ menu_item.url }}">{{ menu_item.name }}</a>
+        {% if menu_item.children.exists %}
+            <ul>
+            {% for child in menu_item.children.all %}
+                <li{% if child.url == current_url or child.url == reverse(current_url) %} class="active"{% endif %}><a href="{{ child.url }}">{{ child.name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
